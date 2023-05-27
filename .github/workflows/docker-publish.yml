@@ -110,7 +110,7 @@ jobs:
           labels: ${{ steps.meta-plex.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/arm64/v7
+          platforms: linux/arm/v7
           file: ./pms-docker/Dockerfile.armv7
       
       # Build Plex Docker image with Buildx
