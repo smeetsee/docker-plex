@@ -1,5 +1,5 @@
 # Actual container
-FROM plexinc/pms-docker
+FROM plexinc/pms-docker:main
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
 RUN adduser --disabled-password --home /home/container container
