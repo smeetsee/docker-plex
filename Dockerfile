@@ -4,6 +4,10 @@ FROM plexinc/pms-docker
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
 RUN adduser --disabled-password --home /home/container container
 
+RUN ln -s /home/container/config /config
+RUN ln -s /home/container/transcode /transcode
+RUN ln -s /home/container/data /data
+
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
