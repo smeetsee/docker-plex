@@ -58,7 +58,6 @@ jobs:
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
-        id: buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
         with:
           # Based on https://stackoverflow.com/a/64560710/2378368
@@ -80,7 +79,6 @@ jobs:
         with:
           context: ./pms-docker
           push: false
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           platforms: linux/amd64
@@ -94,7 +92,6 @@ jobs:
         with:
           context: ./pms-docker
           push: false
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           platforms: linux/arm64/v8
@@ -108,7 +105,6 @@ jobs:
         with:
           context: ./pms-docker
           push: false
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           platforms: linux/arm/v7
@@ -122,7 +118,6 @@ jobs:
         with:
           context: ./pms-docker
           push: false
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           platforms: linux/386
@@ -154,7 +149,6 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64, linux/arm64/v8, linux/386, linux/arm/v7
