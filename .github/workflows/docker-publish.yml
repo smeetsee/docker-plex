@@ -78,6 +78,7 @@ jobs:
         with:
           context: ./pms-docker
           push: false
+          outputs: type=image,push=false
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           cache-from: type=gha
@@ -93,6 +94,7 @@ jobs:
         with:
           context: ./pms-docker
           push: false
+          outputs: type=image,push=false
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           cache-from: type=gha
@@ -108,6 +110,7 @@ jobs:
         with:
           context: ./pms-docker
           push: false
+          outputs: type=image,push=false
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           cache-from: type=gha
@@ -123,6 +126,7 @@ jobs:
         with:
           context: ./pms-docker
           push: false
+          outputs: type=image,push=false
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
           cache-from: type=gha
