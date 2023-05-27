@@ -85,6 +85,21 @@ jobs:
       
       # Build Plex Docker image with Buildx
       # https://github.com/docker/build-push-action
+      - name: Build Plex Docker image (i386)
+        id: build-plex-i386
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          context: ./pms-docker
+          push: false
+          tags: ${{ steps.meta-plex.outputs.tags }}
+          labels: ${{ steps.meta-plex.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/386
+          file: ./pms-docker/Dockerfile.i386
+      
+      # Build Plex Docker image with Buildx
+      # https://github.com/docker/build-push-action
       - name: Build Plex Docker image (arm64)
         id: build-plex-arm64
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
@@ -112,21 +127,6 @@ jobs:
           cache-to: type=gha,mode=max
           platforms: linux/arm/v7
           file: ./pms-docker/Dockerfile.armv7
-      
-      # Build Plex Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build Plex Docker image (i386)
-        id: build-plex-i386
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: ./pms-docker
-          push: false
-          tags: ${{ steps.meta-plex.outputs.tags }}
-          labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/386
-          file: ./pms-docker/Dockerfile.i386
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
