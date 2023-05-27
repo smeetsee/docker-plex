@@ -83,8 +83,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/amd64
           file: ./pms-docker/Dockerfile
       
@@ -99,8 +97,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/arm64/v8
           file: ./pms-docker/Dockerfile.arm64
       
@@ -115,8 +111,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/arm/v7
           file: ./pms-docker/Dockerfile.armv7
       
@@ -131,8 +125,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta-plex.outputs.tags }}
           labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/386
           file: ./pms-docker/Dockerfile.i386
 
@@ -165,8 +157,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/amd64, linux/arm64/v8, linux/386, linux/arm/v7
 
 
