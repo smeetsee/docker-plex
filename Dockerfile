@@ -1,5 +1,5 @@
 # Actual container
-FROM docker.io/plexinc/pms-docker:locally-built
+FROM base-${TARGETARCH}
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
 RUN adduser --disabled-password --home /home/container container
@@ -16,7 +16,6 @@ USER container
 ENV  USER=container HOME=/home/container
 
 # Define executable with parameters
-# ENTRYPOINT [ "/usr/local/bin/xteve","-config=/home/container/.xteve/" ]
 WORKDIR /home/container
 COPY ./entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]

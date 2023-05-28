@@ -60,79 +60,36 @@ jobs:
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
       
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata (Plex)
-        id: meta-plex
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: docker.io/plexinc/pms-docker
-          tags: |
-            locally-built
+      - name: Modify Dockerfile (amd64)
+        # Based on https://stackoverflow.com/a/26958397/2378368
+        run: sed -ie '1 s;$; AS base-amd64' pms-docker/Dockerfile
+      
+      - name: Modify Dockerfile (arm64/v8)
+      # Based on https://stackoverflow.com/a/26958397/2378368
+        run: sed -ie '1 s;$; AS base-arm64/v8' pms-docker/Dockerfile.arm64
+      
+      - name: Modify Dockerfile (arm/v7)
+        # Based on https://stackoverflow.com/a/26958397/2378368
+        run: sed -ie '1 s;$; AS base-arm/v7' pms-docker/Dockerfile.armv7
+      
+      - name: Modify Dockerfile (arm64/v8)
+        # Based on https://stackoverflow.com/a/26958397/2378368
+        run: sed -ie '1 s;$; AS base-arm64/v8' pms-docker/Dockerfile.i386
+      
+      - name: Initialize merged Dockerfile
+        run: cp pms-docker/Dockerfile Dockerfile.merged
+      
+      - name: Append i386 Dockerfile
+        run: cat pms-docker/Dockerfile.i386 >> Dockerfile.merged
+        
+      - name: Append arm64 Dockerfile
+        run: cat pms-docker/Dockerfile.arm64 >> Dockerfile.merged
 
-      # Build Plex Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build Plex Docker image (amd64)
-        id: build-plex-amd64
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: ./pms-docker
-          push: false
-          outputs: type=image,push=false
-          tags: ${{ steps.meta-plex.outputs.tags }}
-          labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/amd64
-          file: ./pms-docker/Dockerfile
-      
-      # Build Plex Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build Plex Docker image (i386)
-        id: build-plex-i386
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: ./pms-docker
-          push: false
-          outputs: type=image,push=false
-          tags: ${{ steps.meta-plex.outputs.tags }}
-          labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/386
-          file: ./pms-docker/Dockerfile.i386
-      
-      # Build Plex Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build Plex Docker image (arm64)
-        id: build-plex-arm64
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: ./pms-docker
-          push: false
-          outputs: type=image,push=false
-          tags: ${{ steps.meta-plex.outputs.tags }}
-          labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/arm64/v8
-          file: ./pms-docker/Dockerfile.arm64
-      
-      # Build Plex Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build Plex Docker image (armv7)
-        id: build-plex-armv7
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: ./pms-docker
-          push: false
-          outputs: type=image,push=false
-          tags: ${{ steps.meta-plex.outputs.tags }}
-          labels: ${{ steps.meta-plex.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/arm/v7
-          file: ./pms-docker/Dockerfile.armv7
+      - name: Append armv7 Dockerfile
+        run: cat pms-docker/Dockerfile.armv7 >> Dockerfile.merged
+
+      - name: Append final Dockerfile
+        run: cat Dockerfile >> Dockerfile.merged
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -159,14 +116,13 @@ jobs:
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
-          pull: false
-          no-cache: false
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64, linux/arm64/v8, linux/386, linux/arm/v7
+          file: ./Dockerfile.merged
 
 
       # Sign the resulting Docker image digest except on PRs.
