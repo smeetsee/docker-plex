@@ -64,9 +64,9 @@ jobs:
         # Based on https://stackoverflow.com/a/26958397/2378368
         run: sed -ie '1 s;$; AS base-amd64' pms-docker/Dockerfile
       
-      - name: Modify Dockerfile (arm64/v8)
+      - name: Modify Dockerfile (i386)
       # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm64/v8' pms-docker/Dockerfile.arm64
+        run: sed -ie '1 s;$; AS base-386' pms-docker/Dockerfile.i386
       
       - name: Modify Dockerfile (arm/v7)
         # Based on https://stackoverflow.com/a/26958397/2378368
@@ -74,7 +74,7 @@ jobs:
       
       - name: Modify Dockerfile (arm64/v8)
         # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm64/v8' pms-docker/Dockerfile.i386
+        run: sed -ie '1 s;$; AS base-arm64/v8' pms-docker/Dockerfile.arm64
       
       - name: Initialize merged Dockerfile
         run: cp pms-docker/Dockerfile Dockerfile.merged
