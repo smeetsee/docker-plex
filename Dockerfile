@@ -13,6 +13,9 @@ RUN mkdir -p /tmp/run && unlink /var/run && ln -s /tmp/run /var/run
 # Store firstRunComplete in persistent location
 RUN sed -ie 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont-init.d/40-plex-first-run
 
+# Fix issue with path/symlink
+RUN sed -ie 's;dirname;realpath;g' /etc/cont-init.d/40-plex-first-run
+
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
