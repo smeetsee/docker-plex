@@ -10,6 +10,9 @@ RUN rmdir /config /transcode && ln -s /home/container/config / && ln -s /home/co
 # Link /run to be stored in /tmp/run
 RUN mkdir -p /tmp/run && unlink /var/run && ln -s /tmp/run /var/run
 
+# Store firstRunComplete in persistent location
+RUN sed -ie 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont-init.d/40-plex-first-run
+
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
