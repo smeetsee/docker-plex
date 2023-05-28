@@ -5,7 +5,7 @@ FROM base-${TARGETARCH}
 RUN adduser --disabled-password -u 1001 --home /home/container --system --ingroup plex container
 
 # Symlink needed directories into /home/container
-RUN ln -s /home/container/config /config && ln -s /home/container/transcode /transcode && ln -s /home/container/media /media
+RUN ln -s /home/container/config / && ln -s /home/container/transcode / && ln -s /home/container/content /
 
 # Link /run to be stored in /tmp/run
 RUN mkdir -p /tmp/run && unlink /var/run && ln -s /tmp/run /var/run
