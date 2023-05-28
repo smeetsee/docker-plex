@@ -8,7 +8,7 @@ RUN adduser --disabled-password -u 1001 --home /home/container --system --ingrou
 RUN ln -s /home/container/config /config && ln -s /home/container/transcode /transcode && ln -s /home/container/media /media
 
 # Link /run to be stored in /tmp/run
-RUN mkdir -p /tmp/run && ln -s /var/run/s6 /tmp/run/s6
+RUN mkdir -p /tmp/run && unlink /var/run && ln -s /var/run /tmp/run
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
