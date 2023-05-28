@@ -81,13 +81,13 @@ jobs:
       
       - name: Append i386 Dockerfile
         run: cat pms-docker/Dockerfile.i386 >> Dockerfile.merged
+          
+      - name: Append armv7 Dockerfile
+        run: cat pms-docker/Dockerfile.armv7 >> Dockerfile.merged
         
       - name: Append arm64 Dockerfile
         run: cat pms-docker/Dockerfile.arm64 >> Dockerfile.merged
-
-      - name: Append armv7 Dockerfile
-        run: cat pms-docker/Dockerfile.armv7 >> Dockerfile.merged
-
+        
       - name: Append final Dockerfile
         run: cat Dockerfile >> Dockerfile.merged
 
