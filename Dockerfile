@@ -21,6 +21,8 @@ RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.
 
 # Re-configure permissions on services
 RUN chown -R container:plex /etc/services.d/plex && chmod -R 0644 /etc/services.d/plex
+# Re-configure permissions on init scripts
+RUN chown -R container:plex /etc/cont-init.d && chmod -R 0744 /etc/cont-init.d
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
