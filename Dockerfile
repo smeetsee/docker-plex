@@ -17,7 +17,7 @@ RUN sed -ie 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont
 RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")");g' /etc/cont-init.d/40-plex-first-run
 
 # Remove undesirable init scripts
-RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update
+RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update /etc/cont-init.d/40-plex-first-rune
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
