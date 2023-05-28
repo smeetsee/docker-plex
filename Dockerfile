@@ -2,11 +2,10 @@
 FROM base-${TARGETARCH}
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
-RUN adduser --disabled-password --home /home/container container
+RUN addgroup -g 2001 -S plex && adduser --disabled-password -u 1001 --home /home/container -S plex container
 
-RUN ln -s /config /home/container/config
-RUN ln -s /transcode /home/container/transcode
-RUN ln -s /data /home/container/data
+# Symlink needed directories into /home/container
+RUN ln -s /config /home/container/config && ln -s /transcode /home/container/transcode && ln -s /data /home/container/data
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
