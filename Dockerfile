@@ -16,6 +16,9 @@ RUN sed -ie 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont
 # Fix issue with path/symlink
 RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")");g' /etc/cont-init.d/40-plex-first-run
 
+# Remove undesirable init scripts
+RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update
+
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
