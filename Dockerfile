@@ -20,7 +20,7 @@ RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")"
 RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update /etc/cont-init.d/40-plex-first-rune
 
 # Re-configure permissions on services
-RUN chown -R container:container /etc/services.d/plex && 0644 /etc/services.d/plex
+RUN chown -R container:container /etc/services.d/plex && chmod -R 0644 /etc/services.d/plex
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
