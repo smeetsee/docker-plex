@@ -70,11 +70,11 @@ jobs:
       
       - name: Modify Dockerfile (arm/v7)
         # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm/v7;' pms-docker/Dockerfile.armv7
+        run: sed -ie '1 s;$; AS base-armv7;' pms-docker/Dockerfile.armv7
       
       - name: Modify Dockerfile (arm64/v8)
         # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm64/v8;' pms-docker/Dockerfile.arm64
+        run: sed -ie '1 s;$; AS base-arm64;' pms-docker/Dockerfile.arm64
       
       - name: Initialize merged Dockerfile
         run: cp pms-docker/Dockerfile Dockerfile.merged
