@@ -20,7 +20,7 @@ RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")"
 EXPOSE 32400/tcp
 
 # Set user, based on https://stackoverflow.com/a/49955098/2378368
-# USER container
+USER container
 ENV  USER=container HOME=/home/container
 
 # Based on https://github.com/just-containers/s6-overlay#read-only-root-filesystem
