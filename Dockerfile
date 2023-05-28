@@ -2,7 +2,7 @@
 FROM base-${TARGETARCH}
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
-RUN useradd -o -u 0 --home-dir /home/container -g plex container
+RUN adduser --disabled-password -u 1001 --home /home/container --system --ingroup plex container
 
 # Symlink needed directories into /home/container
 RUN rmdir /config /transcode && ln -s /home/container/config / && ln -s /home/container/transcode / && ln -s /home/container/content /
