@@ -9,8 +9,6 @@ RUN ln -s /home/container/config /config && ln -s /home/container/transcode /tra
 
 # Link /run to be stored in /tmp/run
 RUN ln -s /tmp/run /run
-# /var/run must be a symbolic link to /run
-RUN ln -s /run /var/run
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
