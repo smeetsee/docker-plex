@@ -12,7 +12,7 @@ RUN ln -s /data /home/container/data
 EXPOSE 32400/tcp
 
 # Set user, based on https://stackoverflow.com/a/49955098/2378368
-USER container
+# USER container
 ENV  USER=container HOME=/home/container
 
 # Define executable with parameters
