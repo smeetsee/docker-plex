@@ -6,7 +6,7 @@ ENV PLEX_GID=2001
 # ENV CHANGE_CONFIG_DIR_OWNERSHIP=false
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
-RUN addgroup --gid 2001 --system container && adduser --disabled-password -u 1001 --home /home/container --system --ingroup container container
+RUN addgroup --gid 2001 container && adduser --disabled-password -u 1001 --home /home/container --system --ingroup container container
 # Fix users/groups; based on https://stackoverflow.com/a/29540180
 RUN head -n 65 /etc/cont-init.d/40-plex-first-run | bash
 
