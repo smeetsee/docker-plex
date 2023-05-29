@@ -27,6 +27,8 @@ RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.
 
 # Modify run-script to remove s6-setuidgid
 RUN sed -ie 's;s6-setuidgid plex;;g' /etc/services.d/plex/run
+RUN sed -ie 's;kill -15;kill -n 15;g' /etc/services.d/plex/finish
+RUN sed -ie 's;kill -9;kill -n 9;g' /etc/services.d/plex/finish
 
 # Re-configure permissions on services
 RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/plex
