@@ -93,6 +93,10 @@ jobs:
 
       - name: Append final Dockerfile
         run: cat Dockerfile >> Dockerfile.merged
+      
+      - name: Modify final Dockerfile (tag=latest)
+        # Based on https://stackoverflow.com/a/26958397/2378368
+        run: sed -ie 's;TAG=beta;TAG=latest;g' Dockerfile.merged
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
