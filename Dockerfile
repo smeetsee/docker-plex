@@ -26,7 +26,7 @@ RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")"
 RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update /etc/cont-init.d/40-plex-first-rune
 
 # Modify run-script to remove s6-setuidgid
-RUN sed -ie 's;exec s6-setuidgid plex /usr/lib/plexmediaserver/Plex\ Media\ Server;exec /usr/lib/plexmediaserver/Plex\ Media\ Server;g' /etc/services.d/plex/run
+RUN sed -ie 's;s6-setuidgid plex;;g' /etc/services.d/plex/run
 
 # Re-configure permissions on services
 RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/plex
