@@ -3,7 +3,7 @@ FROM base-${TARGETARCH}
 
 ENV PLEX_UID=1001
 ENV PLEX_GID=2001
-ENV CHANGE_CONFIG_DIR_OWNERSHIP=false
+# ENV CHANGE_CONFIG_DIR_OWNERSHIP=false
 
 # Based on https://pterodactyl.io/community/config/eggs/creating_a_custom_image.html#creating-the-dockerfile
 RUN addgroup --gid 2001 --system container && adduser --disabled-password -u 1001 --home /home/container --system --ingroup container container
