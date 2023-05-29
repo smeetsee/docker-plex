@@ -43,5 +43,5 @@ ENV S6_READ_ONLY_ROOT=1
 # Define executable with parameters
 WORKDIR /home/container
 COPY ./entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "mkdir -p /tmp/run && mkdir -p /home/container/config && mkdir -p /home/container/transcode && /init"]
+ENTRYPOINT ["/bin/sh", "-c", "mkdir -p /tmp/run && mkdir -p /home/container/config && mkdir -p /home/container/transcode && mkdir -p /home/container/content && /init"]
 # CMD ["/bin/bash", "/entrypoint.sh"]
