@@ -36,8 +36,9 @@ RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/ple
 RUN chown -R plex:plex /etc/cont-init.d && chmod -R 0744 /etc/cont-init.d
 
 # Give permissions on hardware transcode directories
-RUN groupadd -g 44 video1 && groupadd -g 109 render1 && groupadd -g 110 render2 && \
-    usermod -a -G video1 plex && usermod -a -G render1 plex && usermod -a -G render2 plex
+RUN /bin/bash -c 'CURRENT_GROUP=$(getent group 44 | awk -F: \'{print $1}\') if [ -z "${CURRENT_GROUP}" ]; then groupadd -g 44 video1 && usermod -a -G video1 plex'
+RUN /bin/bash -c 'CURRENT_GROUP=$(getent group 109 | awk -F: \'{print $1}\') if [ -z "${CURRENT_GROUP}" ]; then groupadd -g 109 render1 && usermod -a -G render1 plex'
+RUN /bin/bash -c 'CURRENT_GROUP=$(getent group 110 | awk -F: \'{print $1}\') if [ -z "${CURRENT_GROUP}" ]; then groupadd -g 110 render2 && usermod -a -G render2 plex'
 
 # Plex runs on port 32400
 EXPOSE 32400/tcp
