@@ -35,6 +35,10 @@ RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/ple
 # Re-configure permissions on init scripts
 RUN chown -R plex:plex /etc/cont-init.d && chmod -R 0744 /etc/cont-init.d
 
+# Give permissions on hardware transcode directories
+RUN groupadd -g 44 video1 && groupadd -g 109 render1 && groupadd -g 110 render2 && \
+    usermod -a -G video1 plex && usermod -a -G render1 plex && usermod -a -G render2 plex
+
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
