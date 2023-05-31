@@ -31,6 +31,9 @@ RUN sed -ie 's;s6-setuidgid plex;;g' /etc/services.d/plex/run
 RUN sed -ie 's;kill -15;kill -n 15;g' /etc/services.d/plex/finish
 RUN sed -ie 's;kill -9;kill -n 9;g' /etc/services.d/plex/finish
 
+# Install acme.sh
+COPY ./41-install-acme-sh /etc/cont-init.d/41-install-acme-sh
+
 # Re-configure permissions on services
 RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/plex
 # Re-configure permissions on init scripts
@@ -53,9 +56,6 @@ ENV S6_READ_ONLY_ROOT=1
 
 # Define executable with parameters
 WORKDIR /home/container
-
-# Install acme.sh
-COPY 41-install-acme-sh /etc/cont-init.d/41-install-acme-sh
 
 COPY ./entrypoint.sh /entrypoint.sh
 
