@@ -55,7 +55,7 @@ ENV S6_READ_ONLY_ROOT=1
 WORKDIR /home/container
 
 # Install acme.sh
-RUN /bin/bash -c 'curl https://get.acme.sh | sh -s -- nocron'
+COPY 41-install-acme-sh /etc/cont-init.d/41-install-acme-sh
 
 COPY ./entrypoint.sh /entrypoint.sh
 
