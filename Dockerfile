@@ -40,9 +40,6 @@ RUN /bin/bash -c 'export CURRENT_GROUP=$(getent group 44 | awk -F: "{print \$1}"
 RUN /bin/bash -c 'export CURRENT_GROUP=$(getent group 109 | awk -F: "{print \$1}") && if [ -z "${CURRENT_GROUP}" ] ; then groupadd -g 109 render1 && usermod -a -G render1 plex; fi'
 RUN /bin/bash -c 'export CURRENT_GROUP=$(getent group 110 | awk -F: "{print \$1}") && if [ -z "${CURRENT_GROUP}" ] ; then groupadd -g 110 render2 && usermod -a -G render2 plex; fi'
 
-# Install acme.sh
-RUN /bin/bash 'curl https://get.acme.sh | sh -s -- --nocron'
-
 # Plex runs on port 32400
 EXPOSE 32400/tcp
 
@@ -55,6 +52,10 @@ ENV S6_READ_ONLY_ROOT=1
 
 # Define executable with parameters
 WORKDIR /home/container
+
+# Install acme.sh
+RUN /bin/bash 'curl https://get.acme.sh | sh -s -- --nocron'
+
 COPY ./entrypoint.sh /entrypoint.sh
 
 # Reset ENTRYPOINT to use entrypoint.sh instead. Based on https://stackoverflow.com/a/40122359/2378368
