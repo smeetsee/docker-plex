@@ -32,7 +32,7 @@ RUN sed -ie 's;kill -15;kill -n 15;g' /etc/services.d/plex/finish
 RUN sed -ie 's;kill -9;kill -n 9;g' /etc/services.d/plex/finish
 
 # Install acme.sh
-COPY ./41-install-acme-sh /etc/cont-init.d
+COPY ./41-install-acme-sh /etc/cont-init.d/
 
 # Re-configure permissions on services
 RUN chown -R plex:plex /etc/services.d/plex && chmod -R 0755 /etc/services.d/plex
