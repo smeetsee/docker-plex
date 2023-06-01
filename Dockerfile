@@ -18,13 +18,13 @@ RUN rmdir /config /transcode && ln -s /home/container/config / && ln -s /home/co
 RUN mkdir -p /tmp/run && unlink /var/run && ln -s /tmp/run /var/run
 
 # Store firstRunComplete in persistent location
-RUN sed -ie 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont-init.d/40-plex-first-run
+RUN sed -i 's;/.firstRunComplete;/home/container/.firstRunComplete;g' /etc/cont-init.d/40-plex-first-run
 
 # Fix issue with path/symlink
-RUN sed -ie 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")");g' /etc/cont-init.d/40-plex-first-run
+RUN sed -i 's;$(dirname "${prefFile}");$(dirname "$(realpath -m "${prefFile}")");g' /etc/cont-init.d/40-plex-first-run
 
 # Remove undesirable init scripts
-RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update /etc/cont-init.d/40-plex-first-rune
+RUN rm /etc/cont-init.d/45-plex-hw-transcode-and-connected-tuner /etc/cont-init.d/50-plex-update
 
 # Modify run-script to remove s6-setuidgid
 RUN sed -ie 's;s6-setuidgid plex;;g' /etc/services.d/plex/run
