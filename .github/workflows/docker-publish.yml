@@ -129,8 +129,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
+          no-cache: true
           platforms: linux/amd64, linux/arm64/v8, linux/386, linux/arm/v7
           file: ./Dockerfile.merged
 
