@@ -65,41 +65,6 @@ jobs:
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
-      
-      - name: Modify Dockerfile (amd64)
-        # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-amd64;' pms-docker/Dockerfile
-      
-      - name: Modify Dockerfile (i386)
-      # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-386;' pms-docker/Dockerfile.i386
-      
-      - name: Modify Dockerfile (arm/v7)
-        # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm;' pms-docker/Dockerfile.armv7
-      
-      - name: Modify Dockerfile (arm64/v8)
-        # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie '1 s;$; AS base-arm64;' pms-docker/Dockerfile.arm64
-      
-      - name: Initialize merged Dockerfile
-        run: cp pms-docker/Dockerfile Dockerfile.merged
-      
-      - name: Append i386 Dockerfile
-        run: cat pms-docker/Dockerfile.i386 >> Dockerfile.merged
-          
-      - name: Append armv7 Dockerfile
-        run: cat pms-docker/Dockerfile.armv7 >> Dockerfile.merged
-        
-      - name: Append arm64 Dockerfile
-        run: cat pms-docker/Dockerfile.arm64 >> Dockerfile.merged
-
-      - name: Append final Dockerfile
-        run: cat Dockerfile >> Dockerfile.merged
-      
-      - name: Modify final Dockerfile (tag=latest)
-        # Based on https://stackoverflow.com/a/26958397/2378368
-        run: sed -ie 's;TAG=beta;TAG=latest;g' Dockerfile.merged
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -133,7 +98,7 @@ jobs:
           # cache-to: type=gha,mode=max
           no-cache: true
           platforms: linux/amd64, linux/arm64/v8, linux/386, linux/arm/v7
-          file: ./Dockerfile.merged
+          file: pms-docker/Dockerfile
 
 
       # Sign the resulting Docker image digest except on PRs.
