@@ -1,5 +1,5 @@
 # Actual container
-FROM base-${TARGETARCH}
+FROM base
 
 ENV PLEX_UID=997
 ENV PLEX_GID=997
